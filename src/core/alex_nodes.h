@@ -68,8 +68,8 @@ template <class T, class P, class Alloc = std::allocator<std::pair<T, P>>>
 class AlexModelNode : public AlexNode<T, P> {
  public:
   typedef AlexModelNode<T, P, Alloc> self_type;
-  typedef typename Alloc::template rebind<self_type>::other alloc_type;
-  typedef typename Alloc::template rebind<AlexNode<T, P>*>::other
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<self_type> alloc_type;
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<AlexNode<T, P>*>
       pointer_alloc_type;
 
   const Alloc& allocator_;
@@ -294,11 +294,11 @@ class AlexDataNode : public AlexNode<T, P> {
  public:
   typedef std::pair<T, P> V;
   typedef AlexDataNode<T, P, Compare, Alloc, allow_duplicates> self_type;
-  typedef typename Alloc::template rebind<self_type>::other alloc_type;
-  typedef typename Alloc::template rebind<T>::other key_alloc_type;
-  typedef typename Alloc::template rebind<P>::other payload_alloc_type;
-  typedef typename Alloc::template rebind<V>::other value_alloc_type;
-  typedef typename Alloc::template rebind<uint64_t>::other bitmap_alloc_type;
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<self_type> alloc_type;
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<T> key_alloc_type;
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<P> payload_alloc_type;
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<V> value_alloc_type;
+  typedef typename std::allocator_traits<Alloc>::template rebind_alloc<uint64_t> bitmap_alloc_type;
 
   const Compare& key_less_;
   const Alloc& allocator_;

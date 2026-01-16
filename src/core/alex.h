@@ -623,10 +623,10 @@ class Alex {
     if (node == nullptr) {
       return;
     } else if (node->is_leaf_) {
-      data_node_allocator().destroy(static_cast<data_node_type*>(node));
+      static_cast<data_node_type*>(node)->~data_node_type();
       data_node_allocator().deallocate(static_cast<data_node_type*>(node), 1);
     } else {
-      model_node_allocator().destroy(static_cast<model_node_type*>(node));
+      static_cast<model_node_type*>(node)->~model_node_type();
       model_node_allocator().deallocate(static_cast<model_node_type*>(node), 1);
     }
   }
